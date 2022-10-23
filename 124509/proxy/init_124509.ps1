@@ -1,17 +1,22 @@
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell -WindowStyle Hidden "-File `"$PSCommandPath`"" -Verb RunAs; exit }
+#手動プロキシが設定されているかどうかを確認
+if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyEnable") -eq 1)
+{
+    $proxy_url = "http://" + (Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyServer") #プロキシをアドレスで指定
+}
+else
+{
+    $wsobj = new-object -comobject wscript.shell
+    $result = $wsobj.popup("手動プロキシセットアップが設定されていません")
+    exit
+}
 
-#(Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("AutoConfigURL") #PACでプロキシを指定
-$proxy_url = (Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyServer") #プロキシをアドレスで指定
 
-#プロキシの参照がうまくいかない場合は明示的に指定
+#プロキシの参照がうまくいかない場合はIfElseを削除して明示的に指定
 #$proxy_url= 'http://13.231.199.128:3128'
 
-if ($proxy_url -ne $null)
-{
-    $proxy_url = "http://" + $proxy_url
-    set-Content C:\CRDemo\proxy.txt $proxy_url
-    $web_client = New-Object System.Net.WebClient; $proxy_server = New-Object System.Net.WebProxy($proxy_url, $true); $web_client.Proxy = $proxy_server
-}
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell -WindowStyle Hidden "-File `"$PSCommandPath`"" -Verb RunAs; exit }
+set-Content C:\CRDemo\proxy.txt $proxy_url
+$web_client = New-Object System.Net.WebClient; $proxy_server = New-Object System.Net.WebProxy($proxy_url, $true); $web_client.Proxy = $proxy_server
 
 #7zip
 IEX $web_client.DownloadString('https://raw.githubusercontent.com/tameval/script/main/124509/proxy/unzip_124509pr.ps1')
