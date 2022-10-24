@@ -6,7 +6,7 @@ if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\In
 else
 {
     $wsobj = new-object -comobject wscript.shell
-    $result = $wsobj.popup("手動プロキシセットアップが設定されていません")
+    $result = $wsobj.popup("Manual proxy setup not configured")
     exit
 }
 
