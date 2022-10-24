@@ -1,3 +1,16 @@
+if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("AutoConfigURL") -ne $Null)
+{
+    $wsobj = new-object -comobject wscript.shell
+    $result = $wsobj.popup("Do not support Proxy PAC")
+    exit
+}
+if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyEnable") -eq 1)
+{
+    $wsobj = new-object -comobject wscript.shell
+    $result = $wsobj.popup("Use other test file that support manual proxy setting.")
+    exit
+}
+
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell -WindowStyle Hidden "-File `"$PSCommandPath`"" -Verb RunAs; exit }
 
 #7zip
