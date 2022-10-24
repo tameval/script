@@ -1,4 +1,10 @@
 #Check if manual proxy is set or not
+if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("AutoConfigURL") -ne %Null)
+{
+    $wsobj = new-object -comobject wscript.shell
+    $result = $wsobj.popup("Do not support Proxy PAC")
+    exit
+}
 if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyEnable") -eq 1)
 {
     $proxy_url = "http://" + (Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyServer")
