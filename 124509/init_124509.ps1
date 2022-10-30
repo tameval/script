@@ -8,6 +8,7 @@ if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\In
 {
     $wsobj = new-object -comobject wscript.shell
     $result = $wsobj.popup("Use other test file that support manual proxy setting.")
+    Remove-Item C:\CRDemo -Recurse -Force
     exit
 }
 
