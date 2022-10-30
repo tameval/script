@@ -13,6 +13,7 @@ else
 {
     $wsobj = new-object -comobject wscript.shell
     $result = $wsobj.popup("Manual proxy setup not configured")
+    Remove-Item C:\CRDemo -Recurse -Force
     exit
 }
 
