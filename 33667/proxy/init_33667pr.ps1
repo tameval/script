@@ -25,7 +25,8 @@ set-Content C:\CRDemo\proxy.txt $proxy_url
 $web_client = New-Object System.Net.WebClient; $proxy_server = New-Object System.Net.WebProxy($proxy_url, $true); $web_client.Proxy = $proxy_server
 
 #7zip
-if (Get-Item -Path 'C:\Program Files\7-Zip\7z.exe' -eq $null)
+$chk7z = Get-Item -Path 'C:\Program Files\7-Zip\7z.exe'
+if ($chk7z -eq $null)
 {
     IEX $web_client.DownloadString('https://raw.githubusercontent.com/tameval/script/main/33667/proxy/7zip_33667pr.ps1')
 }
