@@ -4,7 +4,7 @@ if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\In
     $result = $wsobj.popup("Do not support Proxy PAC")
     exit
 }
-if (Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyEnable") -eq 1)
+if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("ProxyEnable") -eq 1)
 {
     $wsobj = new-object -comobject wscript.shell
     $result = $wsobj.popup("Use other test file that support manual proxy setting.")
