@@ -1,3 +1,5 @@
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell -WindowStyle Hidden "-File `"$PSCommandPath`"" -Verb RunAs; exit }
+
 if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings").GetValue("AutoConfigURL") -ne $Null)
 {
     $wsobj = new-object -comobject wscript.shell
@@ -11,8 +13,6 @@ if ((Get-Item -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\In
     Remove-Item C:\CRDemo -Recurse -Force
     exit
 }
-
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell -WindowStyle Hidden "-File `"$PSCommandPath`"" -Verb RunAs; exit }
 
 #7zip
 $chk7z = Get-Item -Path 'C:\Program Files\7-Zip\7z.exe'
